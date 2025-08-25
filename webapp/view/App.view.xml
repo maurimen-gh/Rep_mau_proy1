@@ -1,0 +1,18 @@
+<mvc:View controllerName="com.logaligroup.invoices.controller.App"
+        xmlns="sap.m"
+        xmlns:mvc="sap.ui.core.mvc">
+
+    <Shell id="shell">
+        <App id="app">
+           <pages>
+                <Page title="{i18n>title}">
+                    <mvc:XMLView    id="helloPanel"
+                                    viewName="com.logaligroup.invoices.view.HelloPanel"
+                                    type="XML"/>
+                </Page>
+           </pages>
+        </App>
+    </Shell>
+
+
+</mvc:View>
