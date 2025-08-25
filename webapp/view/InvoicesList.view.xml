@@ -1,0 +1,87 @@
+<mvc:View
+        controllerName="com.logaligroup.invoices.controller.InvoicesList"
+        xmlns="sap.m"
+        xmlns:core="sap.ui.core"
+        xmlns:mvc="sap.ui.core.mvc">
+
+        <List
+                id="list"
+                headerText="{i18n>invoicesListTitle}"
+                class="sapUiResponsiveMargin"
+                growing="true"
+                growingThreshold="30"
+                growingScrollToLoad="true"
+                items="{
+                    path: 'northwind>/Invoices',
+                    filters: [
+                        {
+                            path: 'ExtendedPrice',
+                            operator: 'BT',
+                            value1: '0.00',
+                            value2: '100.00'
+                        }
+                    ],
+                    sorter: {
+                        path: 'ShipperName',
+                        group: true
+                    }
+                }"
+                width="auto">
+
+            <headerToolbar>
+                <Toolbar>
+                    <Title text="{i18n>invoicesListTitle}"/>
+                    <ToolbarSpacer/>
+                    <SearchField search="onFilter"
+                                width="50%"/>
+                    <Select id="status"
+                            change="onFilter">
+                        <core:Item key="" text="Select an item"/>
+                        <core:Item key="A" text="New"/>
+                        <core:Item key="B" text="In proccess"/>
+                        <core:Item key="C" text="Done"/>
+                    </Select>
+                </Toolbar>
+            </headerToolbar>
+
+            <items>
+                <ObjectListItem type="Navigation"
+                                title="{northwind>Quantity} x {northwind>ProductName}"
+                                number="{
+                                    parts:[
+                                        'northwind>ExtendedPrice',
+                                        'currencies>/currency'
+                                    ],
+                                    type: 'sap.ui.model.type.Currency',
+                                    formatOptions: {
+                                        showMeasure: false,
+                                        style: 'short',
+                                        roundingMode: 'TOWARDS_ZERO',
+                                        decimals: 2
+                                    }
+                                }"
+                                numberUnit="{currencies>/currency}"
+                                numberState="{= 
+                                    (${northwind>ExtendedPrice} >= 00.00 &amp;&amp; ${northwind>ExtendedPrice} &lt;= 9.99)? 'Error' :
+                                    (${northwind>ExtendedPrice} >= 10.00 &amp;&amp; ${northwind>ExtendedPrice} &lt;= 19.99)? 'Warning' : 
+                                    (${northwind>ExtendedPrice} >= 20.00 &amp;&amp; ${northwind>ExtendedPrice} &lt;= 39.99)? 'Success' : 'Information'
+                                }"
+                                press="onNavToDetails">
+
+                        <!-- <firstStatus>
+                            <ObjectStatus
+                                        core:require="{
+                                            MyFormatter: 'com/logaligroup/invoices/model/formatter'
+                                        }"
+                                        text="{
+                                            path: 'northwind>Status',
+                                            formatter: 'MyFormatter.statusText.bind($controller)'
+                                        }"/>
+                        </firstStatus> -->
+
+                    </ObjectListItem>
+            </items>
+
+        </List>
+
+</mvc:View>

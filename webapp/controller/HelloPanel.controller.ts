@@ -5,6 +5,7 @@ import MessageToast from "sap/m/MessageToast";
 import ResourceModel from "sap/ui/model/resource/ResourceModel";
 import Control from "sap/ui/core/Control";
 
+
 /**
  * @namespace com.logaligroup.invoices.controller
  */
@@ -16,7 +17,6 @@ export default class HelloPanel extends Controller {
     private dialog : Dialog;
 
     public onInit () : void | undefined {
-        console.log(this);
     }
 
     public onShowHello () : void {
@@ -53,5 +53,7 @@ export default class HelloPanel extends Controller {
     public onCloseDialog () : void {
         this.dialog.close();
     }
+
+
 
 }
